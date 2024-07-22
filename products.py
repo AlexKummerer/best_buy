@@ -77,11 +77,9 @@ class Product:
         Returns:
             str: the string representation of the product
         """
-
-    def __str__(self) -> str:
         promotion_info = f", Promotion: {self.promotion.name}" if self.promotion else ""
         return (
-            f"{self.n}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
+            f"{self.name}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
         )
 
     def buy(self, quantity: int) -> float:
@@ -97,22 +95,60 @@ class Product:
         return self.price * quantity
 
     def set_promotion(self, promotion):
+        """
+        Set the promotion for the product
+
+        Args:
+            promotion (_type_):  the promotion to set
+        """
         self.promotion = promotion
 
 
 class LimitedProduct(Product):
+    """
+    A class to represent a limited product
+
+    Args:
+        Product (_type_):  the base product class
+    """
+
     def __init__(self, name: str, price: float, quantity: int, maximum: int) -> None:
         super().__init__(name, price, quantity)
         self.maximum = maximum
+        """
+        Initialize a limited product
+
+        Raises:
+            ValueError: if the maximum quantity is negative or less than the current quantity
+        """
 
 
 class NonStockedProduct(Product):
+    """
+    A class to represent a non-stocked
+
+    Args:
+        Product (_type_): the base product class
+    """
+
     def __init__(
         self,
         name: str,
         price: float,
     ) -> None:
         super().__init__(name, price, quantity=0)
+        """
+        Initialize a non-stocked product
+        """
 
     def set_quantity(self, quantity):
+        """
+        Set the quantity of the product
+
+        Args:
+            quantity (_type_):  the quantity of the product
+
+        Raises:
+            ValueError: _description_
+        """
         raise ValueError("NonStockedProduct cannot have a quantity.")

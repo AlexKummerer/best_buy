@@ -7,7 +7,7 @@ def test_product_creation():
     assert product.name == "Test Product"
     assert product.price == 10.0
     assert product.quantity == 5
-    assert product.active
+    assert product.active == True
 
 
 def test_product_get_quantity():
