@@ -10,9 +10,6 @@ best_buy = Store(product_list)
 
 
 def get_product_list() -> None:
-    """
-    List all products in store
-    """
     products = best_buy.get_all_products()
     print("\nProducts in store\n-----------------")
     for index, product in enumerate(products, start=1):
@@ -25,15 +22,12 @@ def order_product() -> None:
     """
 
     print("When you want to finish order, enter empty text.")
-
     total_payment = 0.0
     while True:
         get_product_list()
         product_number = input("Which product # do you want? ")
-
         if not product_number:
             break
-
         try:
             product_number = int(product_number)
             if product_number < 1 or product_number > len(best_buy.products):
@@ -42,7 +36,6 @@ def order_product() -> None:
         except ValueError:
             print("Invalid input. Please enter a valid product number.")
             continue
-
         try:
             amount = int(input("What amount do you want? "))
             if amount <= 0:
@@ -51,16 +44,13 @@ def order_product() -> None:
         except ValueError:
             print("Invalid input. Please enter a valid amount.")
             continue
-
-        product = best_buy.products[int(product_number) - 1]
-
+        product = best_buy.products[product_number - 1]
         try:
             total_payment += best_buy.order([(product, amount)])
             print(f"Order successful! Total price: {product.price * amount}")
         except ValueError as error:
             print(error)
             break
-
     print("\nOrder Summary\n-------------")
     print(f"Order made! Total payment: {total_payment}")
 
@@ -71,7 +61,7 @@ def command_line_menu() -> None:
     """
     print("\nStore Menu\n----------")
     print(
-        "1. List all products in store\n2. Show total amount in store\n3. Make an order\n4. Quit\n"
+        "1. List all products in store\n2. Show total amount i‚n store\n3. Make an order\n4. Quit\n"
     )
 
 
@@ -81,7 +71,11 @@ def main() -> None:
     """
     while True:
         command_line_menu()
-        user_input = int(input("Enter your choice: "))
+        try:
+            user_input = int(input("Enter your choice: "))
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 4.")
+            continue
         if user_input == 1:
             get_product_list()
         elif user_input == 2:
@@ -94,6 +88,9 @@ def main() -> None:
         elif user_input == 4:
             print("Goodbye!")
             break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
 
 
 if __name__ == "__main__":
