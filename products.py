@@ -11,7 +11,12 @@ class Product:
             name (str): the name of the product
             price (float): the price of the product
             quantity (int):  the quantity of the product
+            
+        Raises:
+            ValueError:  if the name is empty, the price is negative, or the quantity is negative
         """
+        if not name or price <= 0 or quantity < 0:
+            raise ValueError("Invalid product parameters")
         self.name = name
         self.price = price
         self.quantity = quantity
