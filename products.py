@@ -15,7 +15,7 @@ class Product:
         self.name = name
         self.price = price
         self.quantity = quantity
-        self.active = True
+        self.active = quantity > 0
 
     def get_quantity(self) -> float:
         """
@@ -40,6 +40,8 @@ class Product:
         self.quantity = quantity
         if self.quantity == 0:
             self.deactivate()
+        else:
+            self.activate()
 
     def is_active(self) -> bool:
         """
@@ -69,7 +71,7 @@ class Product:
         Returns:
             str: _description_
         """
-        return f"{self.name}, Price: {self.price}, Quntity {self.quantity}"
+        return f"{self.name}, Price: {self.price}, Quantity {self.quantity}"
 
     def buy(self, quantity: int) -> float:
         """

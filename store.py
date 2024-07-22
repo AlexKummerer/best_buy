@@ -56,7 +56,7 @@ class Store:
 
     def order(self, shopping_list: List[tuple]) -> float:
         """
-        Make
+        Make an order
 
         Args:
             shopping_list (List[tuple]):  a list of tuples,

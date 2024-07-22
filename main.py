@@ -34,7 +34,24 @@ def order_product() -> None:
         if not product_number:
             break
 
-        amount = int(input("What amount do you want? "))
+        try:
+            product_number = int(product_number)
+            if product_number < 1 or product_number > len(best_buy.products):
+                print("Invalid product number. Please try again.")
+                continue
+        except ValueError:
+            print("Invalid input. Please enter a valid product number.")
+            continue
+
+        try:
+            amount = int(input("What amount do you want? "))
+            if amount <= 0:
+                print("Amount must be positive. Please try again.")
+                continue
+        except ValueError:
+            print("Invalid input. Please enter a valid amount.")
+            continue
+
         product = best_buy.products[int(product_number) - 1]
 
         try:
