@@ -23,7 +23,6 @@ class Product:
         self.active = quantity > 0
         self.promotion = None
 
-
     def get_quantity(self) -> float:
         """
         Get the quantity of the product
@@ -81,7 +80,9 @@ class Product:
 
     def __str__(self) -> str:
         promotion_info = f", Promotion: {self.promotion.name}" if self.promotion else ""
-        return f"{self.n}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
+        return (
+            f"{self.n}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
+        )
 
     def buy(self, quantity: int) -> float:
         """
@@ -112,3 +113,6 @@ class NonStockedProduct(Product):
         price: float,
     ) -> None:
         super().__init__(name, price, quantity=0)
+
+    def set_quantity(self, quantity):
+        raise ValueError("NonStockedProduct cannot have a quantity.")
