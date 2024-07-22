@@ -61,7 +61,7 @@ def command_line_menu() -> None:
     """
     print("\nStore Menu\n----------")
     print(
-        "1. List all products in store\n2. Show total amount i‚n store\n3. Make an order\n4. Quit\n"
+        "1. List all products in store\n2. Show total amount in store\n3. Make an order\n4. Quit\n"
     )
 
 
