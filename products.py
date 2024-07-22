@@ -89,3 +89,12 @@ class Product:
 
         self.set_quantity((self.quantity - quantity))
         return self.price * quantity
+
+class LimitedProduct(Product):
+    def __init__(self, name: str, price: float, quantity: int, limit: int) -> None:
+        super().__init__(name, price, quantity)
+        self.limit = limit
+
+class NonStockedProduct(Product):
+    def __init__(self, name: str, price: float,) -> None:
+        super().__init__(name, price, quantity = 0)
