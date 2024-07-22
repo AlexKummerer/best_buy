@@ -6,16 +6,23 @@ product_list = [
     products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
     products.Product("Google Pixel 7", price=500, quantity=250),
 ]
+best_buy = store.Store(product_list)
 
 
-def get_product_list(best_buy: store.Store) -> None:
+def get_product_list() -> None:
+    """
+    List all products in store
+    """
     products = best_buy.get_all_products()
     print("\nProducts in store\n-----------------")
     for index, product in enumerate(products, start=1):
         print(f"{index}. {product}")
 
 
-def order_product(best_buy: store.Store) -> None:
+def order_product() -> None:
+    """
+    Make an order
+    """
 
     print("When you want to finish order, enter empty text.")
 
@@ -42,13 +49,19 @@ def order_product(best_buy: store.Store) -> None:
 
 
 def command_line_menu() -> None:
+    """
+    Display command line menu
+    """
     print("\nStore Menu\n----------")
     print(
         "1. List all products in store\n2. Show total amount in store\n3. Make an order\n4. Quit\n"
     )
 
 
-def main(best_buy: store.Store) -> None:
+def main() -> None:
+    """
+    Main function
+    """
     while True:
         command_line_menu()
         user_input = int(input("Enter your choice: "))
@@ -67,6 +80,4 @@ def main(best_buy: store.Store) -> None:
 
 
 if __name__ == "__main__":
-    best_buy = store.Store(product_list)
-
-    main(best_buy)
+    main()
