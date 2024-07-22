@@ -1,19 +1,19 @@
-import store
-import products
+from store import Store
+from products import Product
 
 product_list = [
-    products.Product("MacBook Air M2", price=1450, quantity=100),
-    products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-    products.Product("Google Pixel 7", price=500, quantity=250),
+    Product("MacBook Air M2", price=1450, quantity=100),
+    Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+    Product("Google Pixel 7", price=500, quantity=250),
 ]
-best_buy = store.Store(product_list)
+best_buy = Store(product_list)
 
 
 def get_product_list() -> None:
     """
     List all products in store
     """
-    products = best_buy.get_all_products()
+    products = store.get_all_products()
     print("\nProducts in store\n-----------------")
     for index, product in enumerate(products, start=1):
         print(f"{index}. {product}")
@@ -28,7 +28,7 @@ def order_product() -> None:
 
     total_payment = 0.0
     while True:
-        get_product_list(best_buy)
+        get_product_list()
         product_number = input("Which product # do you want? ")
 
         if not product_number:
@@ -40,8 +40,8 @@ def order_product() -> None:
         try:
             total_payment += best_buy.order([(product, amount)])
             print(f"Order successful! Total price: {product.price * amount}")
-        except ValueError as e:
-            print(e)
+        except ValueError as error:
+            print(error)
             break
 
     print("\nOrder Summary\n-------------")
@@ -66,14 +66,14 @@ def main() -> None:
         command_line_menu()
         user_input = int(input("Enter your choice: "))
         if user_input == 1:
-            get_product_list(best_buy)
+            get_product_list()
         elif user_input == 2:
             print(f"\nTotal quantity in store: {best_buy.get_total_quantity()}")
         elif user_input == 3:
             try:
-                order_product(best_buy)
-            except ValueError as e:
-                print(e)
+                order_product()
+            except ValueError as error:
+                print(error)
         elif user_input == 4:
             print("Goodbye!")
             break

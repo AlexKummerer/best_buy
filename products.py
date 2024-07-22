@@ -2,6 +2,7 @@ class Product:
     """
     A class to represent a product
     """
+
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Initialize a product
@@ -56,7 +57,7 @@ class Product:
         self.active = True
 
     def deactivate(self) -> None:
-        """ 
+        """
         Deactivate the product
         """
         self.active = False
