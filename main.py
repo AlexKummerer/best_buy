@@ -1,3 +1,4 @@
+import promotions
 from store import Store
 from products import Product, NonStockedProduct, LimitedProduct
 
@@ -6,11 +7,18 @@ product_list = [
     Product("Bose QuietComfort Earbuds", price=250, quantity=500),
     Product("Google Pixel 7", price=500, quantity=250),
     NonStockedProduct("Windows License", price=125),
-    LimitedProduct("Shipping", price=10, quantity=250, maximum=1)
-
-
+    LimitedProduct("Shipping", price=10, quantity=250, maximum=1),
 ]
 best_buy = Store(product_list)
+
+second_half_price = promotions.SecondHalfPrice("Second Half price!")
+third_one_free = promotions.ThirdOneFree("Third One Free!")
+thirty_percent = promotions.PercentDiscount("30% off!", percent=30)
+
+# Add promotions to products
+product_list[0].set_promotion(second_half_price)
+product_list[1].set_promotion(third_one_free)
+product_list[3].set_promotion(thirty_percent)
 
 
 def get_product_list() -> None:
@@ -94,7 +102,6 @@ def main() -> None:
             break
         else:
             print("Invalid choice. Please enter a number between 1 and 4.")
-
 
 
 if __name__ == "__main__":

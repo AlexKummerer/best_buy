@@ -11,7 +11,7 @@ class Product:
             name (str): the name of the product
             price (float): the price of the product
             quantity (int):  the quantity of the product
-            
+
         Raises:
             ValueError:  if the name is empty, the price is negative, or the quantity is negative
         """
@@ -21,6 +21,8 @@ class Product:
         self.price = price
         self.quantity = quantity
         self.active = quantity > 0
+        self.promotion = None
+
 
     def get_quantity(self) -> float:
         """
@@ -71,12 +73,15 @@ class Product:
 
     def __str__(self) -> str:
         """
-        Return the string representation of the product
+        Return a string representation of the product
 
         Returns:
-            str: _description_
+            str: the string representation of the product
         """
-        return f"{self.name}, Price: {self.price}, Quantity {self.quantity}"
+
+    def __str__(self) -> str:
+        promotion_info = f", Promotion: {self.promotion.name}" if self.promotion else ""
+        return f"{self.n}, Price: {self.price}, Quantity: {self.quantity}{promotion_info}"
 
     def buy(self, quantity: int) -> float:
         """
@@ -90,11 +95,20 @@ class Product:
         self.set_quantity((self.quantity - quantity))
         return self.price * quantity
 
+    def set_promotion(self, promotion):
+        self.promotion = promotion
+
+
 class LimitedProduct(Product):
-    def __init__(self, name: str, price: float, quantity: int, limit: int) -> None:
+    def __init__(self, name: str, price: float, quantity: int, maximum: int) -> None:
         super().__init__(name, price, quantity)
-        self.limit = limit
+        self.maximum = maximum
+
 
 class NonStockedProduct(Product):
-    def __init__(self, name: str, price: float,) -> None:
-        super().__init__(name, price, quantity = 0)
+    def __init__(
+        self,
+        name: str,
+        price: float,
+    ) -> None:
+        super().__init__(name, price, quantity=0)
