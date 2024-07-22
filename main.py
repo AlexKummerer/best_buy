@@ -13,7 +13,7 @@ def get_product_list() -> None:
     """
     List all products in store
     """
-    products = store.get_all_products()
+    products = best_buy.get_all_products()
     print("\nProducts in store\n-----------------")
     for index, product in enumerate(products, start=1):
         print(f"{index}. {product}")

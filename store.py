@@ -59,7 +59,7 @@ class Store:
         Make
 
         Args:
-            shopping_list (List[tuple]):  a list of tuples, 
+            shopping_list (List[tuple]):  a list of tuples,
             each containing a product and the quantity to order
 
         Raises:
