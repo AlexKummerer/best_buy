@@ -2,120 +2,46 @@ from abc import ABC, abstractmethod
 
 
 class Promotion(ABC):
-    """
-     promotion class
-
-    Args:
-        ABC (_type_):  abstract class
-    """
+    """Base class for promotions."""
 
     def __init__(self, name: str):
         self.name = name
 
     @abstractmethod
-    def apply(self, total: float) -> float:
-        """
-        Apply the promotion
-
-        Args:
-            total (float):  the total price
-
-        Returns:
-            float:  the total price after the promotion
-        """
+    def apply(self, total: float, price_per_item: float, quantity: int) -> float:
+        """Apply the promotion."""
         pass
 
 
 class PercentDiscount(Promotion):
-    """
-    A class to represent a percent discount promotion
-
-    Args:
-        Promotion (_type_):  the base promotion class
-    """
+    """Percent discount promotion."""
 
     def __init__(self, name: str, percent: float):
-        """
-        Initialize a percent discount promotion
-
-        Args:
-            name (str):  the name of the promotion
-            percent (float):  the percent discount
-        """
         super().__init__(name)
+        if percent < 0 or percent > 100:
+            raise ValueError("Percent must be between 0 and 100")
         self.percent = percent
 
-    def apply(self, total: float) -> float:
-        """
-        Apply the percent discount promotion
-
-        Args:
-            total (float):  the total price
-
-        Returns:
-            float:  the total price after the promotion
-        """
+    def apply(self, total: float, price_per_item: float, quantity: int) -> float:
         return total * (1 - self.percent / 100)
 
 
 class SecondHalfPrice(Promotion):
-    """
-    A class to represent a second half price promotion
+    """Second half-price promotion."""
 
-    Args:
-        Promotion (_type_):  the base promotion class
-    """
-
-    def __init__(self, name: str):
-        """
-        Initialize a second half price promotion
-
-        Args:
-            name (str):  the name of the promotion
-        """
-        super().__init__(name)
-
-    def apply(self, total: float) -> float:
-        """
-        Apply the second half price promotion
-
-        Args:
-            total (float):  the total price
-
-        Returns:
-            float:  the total price after the promotion
-        """
-        return total * 0.5
+    def apply(self, total: float, price_per_item: float, quantity: int) -> float:
+        if quantity >= 2:
+            half_price_items = quantity // 2
+            full_price_items = quantity - half_price_items
+            return (full_price_items * price_per_item) + (
+                half_price_items * price_per_item * 0.5
+            )
+        return total
 
 
 class ThirdOneFree(Promotion):
-    """
-    A class to represent a third one free promotion
+    """Third-one-free promotion."""
 
-    Args:
-        Promotion (_type_):  the base promotion class
-    """
-
-    def __init__(self, name: str):
-        """
-        Initialize a third one free promotion
-
-        Args:
-            name (str):  the name of the promotion
-        """
-        super().__init__(name)
-
-    def apply(self, total: float) -> float:
-        """
-        Apply the third one free promotion
-
-        Args:
-            total (float):  the total price
-
-        Returns:
-            float:  the total price after the promotion
-        """
-        num_items = total // 1  # Number of whole items
-        num_free_items = num_items // 3
-        discount = (total / num_items) * num_free_items if num_items > 0 else 0
-        return total - discount
+    def apply(self, total: float, price_per_item: float, quantity: int) -> float:
+        free_items = quantity // 3
+        return total - (free_items * price_per_item)
